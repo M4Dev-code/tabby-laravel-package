@@ -1,6 +1,6 @@
 # Tabby Laravel Package
 
-The **Tabby Laravel Package** (`tabby/laravel`) provides an easy-to-use integration with Tabby, a payment gateway service, allowing developers to create seamless checkout sessions within their Laravel applications.
+The **Tabby Laravel Package** (`tabbysa/laravel`) provides an easy-to-use integration with Tabby, a payment gateway service, allowing developers to create seamless checkout sessions within their Laravel applications.
 
 ## Features
 
@@ -15,7 +15,7 @@ The **Tabby Laravel Package** (`tabby/laravel`) provides an easy-to-use integrat
 To install the package via Composer, run:
 
 ```bash
-composer require tabby/laravel
+composer require tabbysa/laravel
 ```
 
 ## Usage
