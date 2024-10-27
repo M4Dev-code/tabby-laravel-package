@@ -1,3 +1,7 @@
+## 1.0.3
+
+- changed `dob` to optional input
+
 ## 1.0.2
 
 - Formatting of Numeric Values to Strings.

@@ -7,9 +7,9 @@ class TabbyBuyer
     protected string $phone;
     protected string $email;
     protected string $name;
-    protected string $dob;
+    protected ?string $dob;
 
-    public function __construct(string $phone, string $email, string $name, string $dob)
+    public function __construct(string $phone, string $email, string $name, ?string $dob = null)
     {
         $this->phone = $phone;
         $this->email = $email;
@@ -33,7 +33,7 @@ class TabbyBuyer
             $data['phone'] ?? '',
             $data['email'] ?? '',
             $data['name'] ?? '',
-            $data['dob'] ?? '',
+            $data['dob'] ?? null,
         );
     }
 }
