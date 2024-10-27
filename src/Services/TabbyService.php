@@ -35,14 +35,15 @@ class TabbyService
     public function createSession(
         $amount,
         TabbyBuyer $buyer,
-        TabbyBuyerHistory $buyerHistory,
         TabbyOrder $order,
-        TabbyOrderHistory $orderHistory,
         TabbyShippingAddress $shippingAddress,
+        $description = '',
         $successCallback = null,
         $cancelCallback = null,
         $failureCallback = null,
         $lang = 'ar',
+        ?TabbyBuyerHistory $buyerHistory = null,
+        ?TabbyOrderHistory $orderHistory = null,
     ): string {
         try {
             // Request Endpoint
@@ -55,10 +56,14 @@ class TabbyService
                 'Authorization' => "Bearer {$this->publicKey}",
             ];
 
+            // Set default values
+            $buyerHistory ??= new TabbyBuyerHistory();
+            $orderHistory ??= new TabbyOrderHistory($amount);
+
             $payment = [
                 'amount' => $amount,
                 'currency' => $this->currency,
-                // 'description' => 'string',
+                'description' => $description,
                 'buyer' => $buyer->toArray(),
                 'buyer_history' => $buyerHistory->toArray(),
                 'order' => $order->toArray(),
@@ -85,7 +90,9 @@ class TabbyService
 
             // Check if the request was successful
             if ($response->failed()) {
-                $this->handleResponseError($response, 'Failed to create session');
+                $errorData = $response->json();
+                $errorMsg = $errorData['error'] ?? 'Failed to create session';
+                throw new Exception($errorMsg, $response->status());
             }
 
             // Decode the JSON response and extract the token
@@ -99,29 +106,5 @@ class TabbyService
         } catch (Exception $e) {
             throw $e;
         }
-    }
-
-
-    /** --------------------------------------------- HELPERS --------------------------------------------- */
-    /**
-     * Handle errors in the response.
-     *
-     * @param \Illuminate\Http\Client\Response $response
-     * @throws \Exception
-     */
-    private function handleResponseError($response, string $defaultErrorMsg)
-    {
-        // Try to extract error details from the response body
-        $responseData = $response->json();
-        $errorMsg = $responseData['detail'] ?? $responseData['title'] ?? $responseData['error'] ?? $response->body();
-
-        if (empty($errorMsg)) {
-            $errorMsg = $defaultErrorMsg;
-        }
-
-        // Include the status code in the error message for debugging purposes
-        $errorMsg .= ", Status code: {$response->status()}";
-
-        throw new Exception($errorMsg, $response->status());
     }
 }

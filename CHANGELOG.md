@@ -1,3 +1,18 @@
+## 1.0.1
+
+- **Breaking Changes**
+  - Removed `TabbyBuyerHistory` and `TabbyOrderHistory` as required parameters in `createSession`. These are now optional and are initialized with default values if not provided.
+- **Enhancements**
+
+  - Added `description` parameter to `createSession` for improved session details.
+  - Simplified code in `ExampleController` for quicker integration.
+  - Updated `createSession` method to initialize `TabbyBuyerHistory` and `TabbyOrderHistory` with default values if omitted, allowing more flexible usage.
+  - Refactored request error handling to provide specific error messages and codes, improving debugging support.
+
+- **Documentation**
+  - Updated `README` with revised example code reflecting changes in required parameters for `createSession`.
+  - Simplified the example for initializing `TabbyService` by using placeholders for credentials.
+
 ## 1.0.0
 
 - Released the initial version of Tabby Package with essential features.

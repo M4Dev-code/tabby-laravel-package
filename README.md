@@ -27,11 +27,7 @@ To use the Tabby Service, you need to initialize it with the required credential
 ```php
 use Tabby\Services\TabbyService;
 
-$tabbyService = new TabbyService(
-    merchantCode: 'xxx',
-    publicKey: 'xxx',
-    secretKey: 'xxx'
-);
+$tabbyService = new TabbyService(merchantCode: 'xxx', publicKey: 'xxx', secretKey: 'xxx');
 ```
 
 ### Creating a Checkout Session
@@ -40,9 +36,7 @@ To create a checkout session, you will need the buyer’s information, buyer his
 
 ```php
 use Tabby\Models\TabbyBuyer;
-use Tabby\Models\TabbyBuyerHistory;
 use Tabby\Models\TabbyOrder;
-use Tabby\Models\TabbyOrderHistory;
 use Tabby\Models\TabbyShippingAddress;
 use Tabby\Models\TabbyOrderItem;
 
@@ -53,11 +47,6 @@ try {
         email: 'card.success@tabby.ai',
         name: 'John Doe',
         dob: '1990-01-01',
-    );
-
-    // Sample buyer history data
-    $buyerHistory = new TabbyBuyerHistory(
-        registeredSince: '2020-01-01T14:15:22Z', // optional
     );
 
     // Sample order data
@@ -75,30 +64,26 @@ try {
         ],
     );
 
-    // Sample order history data
-    $orderHistory = new TabbyOrderHistory(
-        amount: 0.0
-    );
-
     // Sample shipping address data
     $shippingAddress = new TabbyShippingAddress(
-        city: 'Riyadh',
+        city: 'Al-Khobar',
         address: 'Street Address',
         zip: '12345',
     );
 
     // Create session and get the payment URL
     $webUrl = $tabbyService->createSession(
-        amount: 100,
+        amount: 200,
         buyer: $buyer,
-        buyerHistory: $buyerHistory,
         order: $order,
-        orderHistory: $orderHistory,
         shippingAddress: $shippingAddress,
-        successCallback: 'https://example.com/success', // optional
-        cancelCallback: 'https://example.com/cancel', // optional
-        failureCallback: 'https://example.com/failure', // optional
-        lang: 'ar' // optional
+        description: 'order description',
+        successCallback: 'https://example.com/success',
+        cancelCallback: 'https://example.com/cancel',
+        failureCallback: 'https://example.com/failure',
+        // 'ar',            // optional
+        // $buyerHistory,   // optional
+        // $orderHistory,   // optional
     );
 
     // Redirect to the payment page

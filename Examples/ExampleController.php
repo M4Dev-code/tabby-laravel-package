@@ -8,9 +8,7 @@ use Exception;
 // Import Tabby Service
 use Tabby\Services\TabbyService;
 use Tabby\Models\TabbyBuyer;
-use Tabby\Models\TabbyBuyerHistory;
 use Tabby\Models\TabbyOrder;
-use Tabby\Models\TabbyOrderHistory;
 use Tabby\Models\TabbyShippingAddress;
 use Tabby\Models\TabbyOrderItem;
 
@@ -19,57 +17,47 @@ class ExampleController extends Controller
     public function getWebUrl()
     {
         try {
-            $tabbyService = new TabbyService(
-                merchantCode: '',
-                publicKey: '',
-                secretKey: '',
-            );
+            $tabbyService = new TabbyService(merchantCode: 'xxx', publicKey: 'xxx', secretKey: 'xxx');
 
             $buyer = new TabbyBuyer(
                 phone: '500000001',
                 email: 'card.success@tabby.ai',
-                name: 'string',
-                dob: '2019-08-24',
-            );
-
-            $buyerHistory = new TabbyBuyerHistory(
-                registeredSince: '2019-08-24T14:15:22Z',
+                name: 'Ahmed Ali',
+                dob: '1990-08-24',
             );
 
             $order = new TabbyOrder(
-                referenceId: 'abc',
+                referenceId: 'order-001',
                 items: [
                     new TabbyOrderItem(
-                        title: 'a',
-                        description: 'b',
+                        title: 'Product Name',
+                        description: 'Product Description',
                         quantity: 1,
-                        unitPrice: 5,
-                        referenceId: '123',
-                        category: 'tea'
+                        unitPrice: 100,
+                        referenceId: 'prod-001',
+                        category: 'electronics'
                     ),
                 ],
             );
 
-            $orderHistory = new TabbyOrderHistory(
-                amount: 0.0
-            );
-
             $shippingAddress = new TabbyShippingAddress(
-                city: 'khobar',
-                address: 'address',
+                city: 'Al-Khobar',
+                address: 'Street Address',
                 zip: '12345',
             );
 
             $webUrl = $tabbyService->createSession(
-                200,
-                $buyer,
-                $buyerHistory,
-                $order,
-                $orderHistory,
-                $shippingAddress,
-                '/success',
-                '/cancel',
-                'failure',
+                amount: 200,
+                buyer: $buyer,
+                order: $order,
+                shippingAddress: $shippingAddress,
+                description: 'order description',
+                successCallback: 'https://example.com/success',
+                cancelCallback: 'https://example.com/cancel',
+                failureCallback: 'https://example.com/failure',
+                // 'ar',            // optional
+                // $buyerHistory,   // optional
+                // $orderHistory,   // optional
             );
 
             return $webUrl;
