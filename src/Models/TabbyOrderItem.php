@@ -39,11 +39,11 @@ class TabbyOrderItem
             'title' => $this->title,
             'description' => $this->description,
             'quantity' => $this->quantity,
-            'unit_price' => $this->unitPrice,
+            'unit_price' => number_format($this->unitPrice, 2),
             'reference_id' => $this->referenceId,
             'product_url' => $this->productUrl,
             'category' => $this->category,
-            'discount_amount' => $this->discountAmount,
+            'discount_amount' => $this->discountAmount ? number_format($this->discountAmount, 2) : null,
         ];
     }
 

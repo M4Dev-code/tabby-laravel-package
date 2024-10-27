@@ -27,7 +27,7 @@ class TabbyOrderHistory
     {
         return [
             'purchased_at' => $this->purchasedAt,
-            'amount' => $this->amount,
+            'amount' => number_format($this->amount, 2),
             'payment_method' => $this->paymentMethod,
             'status' => $this->status,
         ];

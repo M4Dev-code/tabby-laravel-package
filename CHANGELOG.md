@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Formatting of Numeric Values to Strings.
+
 ## 1.0.1
 
 - **Breaking Changes**

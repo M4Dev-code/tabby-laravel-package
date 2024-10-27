@@ -61,13 +61,13 @@ class TabbyService
             $orderHistory ??= new TabbyOrderHistory($amount);
 
             $payment = [
-                'amount' => $amount,
+                'amount' => number_format($amount, 2),
                 'currency' => $this->currency,
                 'description' => $description,
                 'buyer' => $buyer->toArray(),
                 'buyer_history' => $buyerHistory->toArray(),
                 'order' => $order->toArray(),
-                'order_history' => $orderHistory->toArray(),
+                'order_history' => [$orderHistory->toArray()],
                 'shipping_address' => $shippingAddress->toArray(),
                 // 'meta' => $meta,
                 // 'attachment' => $attachment,

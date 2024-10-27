@@ -44,9 +44,9 @@ class TabbyOrder
         return [
             'reference_id' => $this->referenceId,
             'items' => $itemsArr,
-            'tax_amount' => $this->taxAmount,
-            'shipping_amount' => $this->shippingAmount,
-            'discount_amount' => $this->discountAmount,
+            'tax_amount' => $this->taxAmount ? number_format($this->taxAmount, 2) : null,
+            'shipping_amount' => $this->shippingAmount ? number_format($this->shippingAmount, 2) : null,
+            'discount_amount' => $this->discountAmount ? number_format($this->discountAmount, 2) : null,
             'updated_at' => $this->updatedAt,
         ];
     }
