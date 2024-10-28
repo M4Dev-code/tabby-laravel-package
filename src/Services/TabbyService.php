@@ -96,9 +96,37 @@ class TabbyService
             }
 
             // Decode the JSON response and extract the token
-            $responseData = $response->json();
+    public function retrievePayment(string $paymentId)
+    {
+        try {
+            $paymentId = trim($paymentId);
 
-            return $this->getWebUrl($responseData);
+            if (empty($paymentId)) {
+                throw new Exception('Payment ID is required', 400);
+            }
+
+            // Request Endpoint
+            $requestEndpoint = self::BASE_URI . '/payments/' . $paymentId;
+
+            // Request headers
+            $requestHeaders = [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => "Bearer {$this->secretkey}",
+            ];
+
+            // Send a POST request to the authentication endpoint
+            $response = Http::withHeaders($requestHeaders)->get($requestEndpoint);
+
+            // Check if the request was successful
+            if ($response->failed()) {
+                $errorData = $response->json();
+                $errorMsg = $errorData['error'] ?? 'Failed to retrieve payment';
+                throw new Exception($errorMsg, $response->status());
+            }
+
+            // Decode the JSON response
+            return $response->json();
         } catch (Exception $e) {
             throw $e;
         }
