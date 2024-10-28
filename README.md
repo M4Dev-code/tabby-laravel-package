@@ -72,7 +72,7 @@ try {
     );
 
     // Create session and get the payment URL
-    $webUrl = $tabbyService->createSession(
+    $sessionData = $tabbyService->createSession(
         amount: 200,
         buyer: $buyer,
         order: $order,
@@ -86,10 +86,24 @@ try {
         // $orderHistory,   // optional
     );
 
+    // Fetch the payment url from the responsed data
+    $webUrl = $tabbyService->getPaymentUrl($sessionData);
+
     // Redirect to the payment page
     return redirect($webUrl);
 } catch (Exception $e) {
     // Handle exceptions
+    return response()->json(['error' => $e->getMessage()], 500);
+}
+```
+
+### Retrieve Payment
+
+```php
+try {
+    // Fetch the payment data from tabby system
+    $paymentData = $this->tabbyService->retrievePayment($request->payment_id);
+} catch (Exception $e) {
     return response()->json(['error' => $e->getMessage()], 500);
 }
 ```

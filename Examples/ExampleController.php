@@ -46,7 +46,7 @@ class ExampleController extends Controller
                 zip: '12345',
             );
 
-            $webUrl = $tabbyService->createSession(
+            $sessionData = $tabbyService->createSession(
                 amount: 200,
                 buyer: $buyer,
                 order: $order,
@@ -60,7 +60,22 @@ class ExampleController extends Controller
                 // $orderHistory,   // optional
             );
 
+            $webUrl = $tabbyService->getPaymentUrl($sessionData);
+
             return $webUrl;
+        } catch (Exception $e) {
+            // -- Handle the error
+        }
+    }
+
+    public function retrievePayment()
+    {
+        try {
+            $tabbyService = new TabbyService(merchantCode: 'xxx', publicKey: 'xxx', secretKey: 'xxx');
+
+            $paymentData = $tabbyService->retrievePayment('payment-001');
+
+            return $paymentData;
         } catch (Exception $e) {
             // -- Handle the error
         }
