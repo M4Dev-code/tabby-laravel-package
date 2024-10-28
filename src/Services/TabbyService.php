@@ -139,7 +139,7 @@ class TabbyService
     }
 
     // ---------------------------------------------------------------------------------
-    public function getWebUrlFromSessionResponse($sessionResponse): string
+    public function getPaymentUrl($sessionResponse): string
     {
         try {
             // Check if the web URL for installments is set and not empty
