@@ -44,7 +44,7 @@ class TabbyService
         $lang = 'ar',
         ?TabbyBuyerHistory $buyerHistory = null,
         ?TabbyOrderHistory $orderHistory = null,
-    ): string {
+    ) {
         try {
             // Request Endpoint
             $requestEndpoint = self::BASE_URI . '/checkout';
@@ -96,6 +96,12 @@ class TabbyService
             }
 
             // Decode the JSON response and extract the token
+            return $response->json();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     public function retrievePayment(string $paymentId)
     {
         try {
@@ -135,24 +141,28 @@ class TabbyService
     // ---------------------------------------------------------------------------------
     public function getWebUrlFromSessionResponse($sessionResponse): string
     {
-        // Check if the web URL for installments is set and not empty
-        $isWebUrlAvailable = !empty($sessionResponse['configuration']['available_products']['installments'][0]['web_url']);
+        try {
+            // Check if the web URL for installments is set and not empty
+            $isWebUrlAvailable = !empty($sessionResponse['configuration']['available_products']['installments'][0]['web_url']);
 
-        if (!$isWebUrlAvailable) {
-            // Determine the appropriate error message
-            $errorMsg = strtolower($sessionResponse['status'] ?? '') === 'rejected'
-                ? 'The session request was rejected.'
-                : 'Web URL missing in the response.';
+            if (!$isWebUrlAvailable) {
+                // Determine the appropriate error message
+                $errorMsg = strtolower($sessionResponse['status'] ?? '') === 'rejected'
+                    ? 'The session request was rejected.'
+                    : 'Web URL missing in the response.';
 
-            // Override error message with warning if available
-            if (!empty($sessionResponse['warnings'][0]['message'])) {
-                $errorMsg = $sessionResponse['warnings'][0]['message'];
+                // Override error message with warning if available
+                if (!empty($sessionResponse['warnings'][0]['message'])) {
+                    $errorMsg = $sessionResponse['warnings'][0]['message'];
+                }
+
+                // Throw an exception with the determined error message
+                throw new Exception($errorMsg, 500);
             }
 
-            // Throw an exception with the determined error message
-            throw new Exception($errorMsg, 500);
+            return $sessionResponse['configuration']['available_products']['installments'][0]['web_url'];
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        return $sessionResponse['configuration']['available_products']['installments'][0]['web_url'];
     }
 }
