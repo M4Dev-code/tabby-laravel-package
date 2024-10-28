@@ -98,13 +98,32 @@ class TabbyService
             // Decode the JSON response and extract the token
             $responseData = $response->json();
 
-            if (empty(isset($responseData['configuration']['available_products']['installments'][0]['web_url']))) {
-                throw new Exception('Web Url missing in the response.');
-            }
-
-            return $responseData['configuration']['available_products']['installments'][0]['web_url'];
+            return $this->getWebUrl($responseData);
         } catch (Exception $e) {
             throw $e;
         }
+    }
+
+    private function getWebUrl($responseData): string
+    {
+        // Check if the web URL for installments is set and not empty
+        $isWebUrlAvailable = !empty($responseData['configuration']['available_products']['installments'][0]['web_url']);
+
+        if (!$isWebUrlAvailable) {
+            // Determine the appropriate error message
+            $errorMsg = strtolower($responseData['status'] ?? '') === 'rejected'
+                ? 'The session request was rejected.'
+                : 'Web URL missing in the response.';
+
+            // Override error message with warning if available
+            if (!empty($responseData['warnings'][0]['message'])) {
+                $errorMsg = $responseData['warnings'][0]['message'];
+            }
+
+            // Throw an exception with the determined error message
+            throw new Exception($errorMsg, 500);
+        }
+
+        return $responseData['configuration']['available_products']['installments'][0]['web_url'];
     }
 }
