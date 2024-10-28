@@ -132,26 +132,27 @@ class TabbyService
         }
     }
 
-    private function getWebUrl($responseData): string
+    // ---------------------------------------------------------------------------------
+    public function getWebUrlFromSessionResponse($sessionResponse): string
     {
         // Check if the web URL for installments is set and not empty
-        $isWebUrlAvailable = !empty($responseData['configuration']['available_products']['installments'][0]['web_url']);
+        $isWebUrlAvailable = !empty($sessionResponse['configuration']['available_products']['installments'][0]['web_url']);
 
         if (!$isWebUrlAvailable) {
             // Determine the appropriate error message
-            $errorMsg = strtolower($responseData['status'] ?? '') === 'rejected'
+            $errorMsg = strtolower($sessionResponse['status'] ?? '') === 'rejected'
                 ? 'The session request was rejected.'
                 : 'Web URL missing in the response.';
 
             // Override error message with warning if available
-            if (!empty($responseData['warnings'][0]['message'])) {
-                $errorMsg = $responseData['warnings'][0]['message'];
+            if (!empty($sessionResponse['warnings'][0]['message'])) {
+                $errorMsg = $sessionResponse['warnings'][0]['message'];
             }
 
             // Throw an exception with the determined error message
             throw new Exception($errorMsg, 500);
         }
 
-        return $responseData['configuration']['available_products']['installments'][0]['web_url'];
+        return $sessionResponse['configuration']['available_products']['installments'][0]['web_url'];
     }
 }
