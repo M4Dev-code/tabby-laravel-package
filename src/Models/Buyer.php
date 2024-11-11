@@ -2,7 +2,7 @@
 
 namespace Tabby\Models;
 
-class TabbyBuyer
+class Buyer
 {
     protected string $phone;
     protected string $email;

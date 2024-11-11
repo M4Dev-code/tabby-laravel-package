@@ -2,7 +2,7 @@
 
 namespace Tabby\Models;
 
-class TabbyShippingAddress
+class ShippingAddress
 {
     protected string $city;
     protected string $address;

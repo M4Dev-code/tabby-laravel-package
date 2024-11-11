@@ -4,14 +4,14 @@ namespace Tabby\Models;
 
 use Illuminate\Support\Carbon;
 
-class TabbyBuyerHistory
+class BuyerHistory
 {
-    protected string $registeredSince;
-    protected int $loyaltyLevel;
-    protected int $wishlistCount;
-    protected bool $isSocialNetworksConnected;
-    protected bool $isPhoneNumberVerified;
-    protected bool $isEmailVerified;
+    private string $registeredSince;
+    private int $loyaltyLevel;
+    private int $wishlistCount;
+    private bool $isSocialNetworksConnected;
+    private bool $isPhoneNumberVerified;
+    private bool $isEmailVerified;
 
     public function __construct(
         ?string $registeredSince = null,
@@ -29,6 +29,7 @@ class TabbyBuyerHistory
         $this->isEmailVerified = $isEmailVerified;
     }
 
+    // Convert the object to an array
     public function toArray(): array
     {
         return [
@@ -41,15 +42,47 @@ class TabbyBuyerHistory
         ];
     }
 
+    // Populate the object from an array
     public static function fromArray(array $data): self
     {
         return new self(
-            $data['registered_since'] ?? Carbon::now()->toIso8601ZuluString(),
+            $data['registered_since'] ?? null,
             $data['loyalty_level'] ?? 0,
             $data['wishlist_count'] ?? 0,
             $data['is_social_networks_connected'] ?? false,
             $data['is_phone_number_verified'] ?? false,
             $data['is_email_verified'] ?? false
         );
+    }
+
+    // Getters
+    public function getRegisteredSince(): string
+    {
+        return $this->registeredSince;
+    }
+
+    public function getLoyaltyLevel(): int
+    {
+        return $this->loyaltyLevel;
+    }
+
+    public function getWishlistCount(): int
+    {
+        return $this->wishlistCount;
+    }
+
+    public function isSocialNetworksConnected(): bool
+    {
+        return $this->isSocialNetworksConnected;
+    }
+
+    public function isPhoneNumberVerified(): bool
+    {
+        return $this->isPhoneNumberVerified;
+    }
+
+    public function isEmailVerified(): bool
+    {
+        return $this->isEmailVerified;
     }
 }
