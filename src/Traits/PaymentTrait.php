@@ -2,6 +2,8 @@
 
 namespace Tabby\Traits;
 
+use Illuminate\Support\Facades\Http;
+
 use Tabby\Exceptions\TabbyApiException;
 use Tabby\Models\Payment;
 use Tabby\Models\PaymentCapture;
@@ -15,11 +17,11 @@ trait PaymentTrait
             $paymentId = trim($paymentId);
 
             if (empty($paymentId)) {
-                throw new Exception('Payment ID is required', 400);
+                throw new \Exception('Payment ID is required', 400);
             }
 
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/payments/$paymentId";
+            $requestEndpoint = static::BASE_URI . "/payments/$paymentId";
 
             // Request headers
             $requestHeaders = [
@@ -40,7 +42,7 @@ trait PaymentTrait
             $payment = $response->json();
 
             return Payment::fromArray($payment);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -54,7 +56,7 @@ trait PaymentTrait
             $paymentId = trim($paymentId);
 
             if (empty($paymentId)) {
-                throw new Exception('Payment ID is required', 400);
+                throw new \Exception('Payment ID is required', 400);
             }
 
             $data = [];
@@ -72,11 +74,11 @@ trait PaymentTrait
             }
 
             if (empty($data)) {
-                throw new Exception('One of the following fields is required: order, delivery_tracking', 400);
+                throw new \Exception('One of the following fields is required: order, delivery_tracking', 400);
             }
 
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/payments/$paymentId";
+            $requestEndpoint = static::BASE_URI . "/payments/$paymentId";
 
             // Request headers
             $requestHeaders = [
@@ -97,7 +99,7 @@ trait PaymentTrait
             $payment = $response->json();
 
             return Payment::fromArray($payment);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -115,11 +117,11 @@ trait PaymentTrait
             $paymentId = trim($paymentId);
 
             if (empty($paymentId)) {
-                throw new Exception('Payment ID is required', 400);
+                throw new \Exception('Payment ID is required', 400);
             }
 
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/payments/$paymentId/captures";
+            $requestEndpoint = static::BASE_URI . "/payments/$paymentId/captures";
 
             // Request headers
             $requestHeaders = [
@@ -152,7 +154,7 @@ trait PaymentTrait
             $payment = $response->json();
 
             return Payment::fromArray($payment);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -168,11 +170,11 @@ trait PaymentTrait
             $paymentId = trim($paymentId);
 
             if (empty($paymentId)) {
-                throw new Exception('Payment ID is required', 400);
+                throw new \Exception('Payment ID is required', 400);
             }
 
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/payments/$paymentId/refunds";
+            $requestEndpoint = static::BASE_URI . "/payments/$paymentId/refunds";
 
             // Request headers
             $requestHeaders = [
@@ -203,7 +205,7 @@ trait PaymentTrait
             $payment = $response->json();
 
             return Payment::fromArray($payment);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -214,11 +216,11 @@ trait PaymentTrait
             $paymentId = trim($paymentId);
 
             if (empty($paymentId)) {
-                throw new Exception('Payment ID is required', 400);
+                throw new \Exception('Payment ID is required', 400);
             }
 
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/payments/$paymentId/close";
+            $requestEndpoint = static::BASE_URI . "/payments/$paymentId/close";
 
             // Request headers
             $requestHeaders = [
@@ -239,7 +241,7 @@ trait PaymentTrait
             $payment = $response->json();
 
             return Payment::fromArray($payment);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -259,7 +261,7 @@ trait PaymentTrait
             }
 
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/payments";
+            $requestEndpoint = static::BASE_URI . "/payments";
 
             // Request headers
             $requestHeaders = [
@@ -304,7 +306,7 @@ trait PaymentTrait
 
             // Return results
             return [$payments, $pagination];
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }

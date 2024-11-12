@@ -142,11 +142,11 @@ class CheckoutSession
                 }
 
                 // Throw an exception with the determined error message
-                throw new Exception($errorMsg, 500);
+                throw new \Exception($errorMsg, 500);
             }
 
             return $this->configuration->getAvailableProducts()['installments'][0]['web_url'];
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }

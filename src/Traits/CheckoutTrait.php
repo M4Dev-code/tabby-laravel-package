@@ -2,6 +2,8 @@
 
 namespace Tabby\Traits;
 
+use Illuminate\Support\Facades\Http;
+
 use Tabby\Models\Buyer;
 use Tabby\Models\BuyerHistory;
 use Tabby\Models\CheckoutSession;
@@ -30,7 +32,7 @@ trait CheckoutTrait
     ): CheckoutSession {
         try {
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . '/checkout';
+            $requestEndpoint = static::BASE_URI . '/checkout';
 
             // Request headers
             $requestHeaders = [
@@ -92,7 +94,7 @@ trait CheckoutTrait
                 token: $sessionData['token'],
                 warnings: $sessionData['warnings'],
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -103,11 +105,11 @@ trait CheckoutTrait
             $sessionId = trim($sessionId);
 
             if (empty($sessionId)) {
-                throw new Exception('Session ID is required', 400);
+                throw new \Exception('Session ID is required', 400);
             }
 
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/checkout/{$sessionId}";
+            $requestEndpoint = static::BASE_URI . "/checkout/{$sessionId}";
 
             // Request headers
             $requestHeaders = [
@@ -139,7 +141,7 @@ trait CheckoutTrait
                 token: $sessionData['token'],
                 warnings: $sessionData['warnings'],
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }

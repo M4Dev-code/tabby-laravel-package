@@ -2,6 +2,8 @@
 
 namespace Tabby\Traits;
 
+use Illuminate\Support\Facades\Http;
+
 use Tabby\Exceptions\TabbyApiException;
 use Tabby\Models\Webhook;
 
@@ -15,7 +17,7 @@ trait WebhookTrait
     ): Webhook {
         try {
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/webhooks";
+            $requestEndpoint = static::BASE_URI . "/webhooks";
 
             // Request headers
             $requestHeaders = [
@@ -46,7 +48,7 @@ trait WebhookTrait
             $webhook = $response->json();
 
             return Webhook::fromArray($webhook);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -55,7 +57,7 @@ trait WebhookTrait
     {
         try {
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/webhooks";
+            $requestEndpoint = static::BASE_URI . "/webhooks";
 
             // Request headers
             $requestHeaders = [
@@ -81,7 +83,7 @@ trait WebhookTrait
                 fn($webhook) => Webhook::fromArray($webhook),
                 $webhookList
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -90,7 +92,7 @@ trait WebhookTrait
     {
         try {
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/webhooks/{$webhookId}";
+            $requestEndpoint = static::BASE_URI . "/webhooks/{$webhookId}";
 
             // Request headers
             $requestHeaders = [
@@ -112,7 +114,7 @@ trait WebhookTrait
             $webhook = $response->json();
 
             return Webhook::fromArray($webhook);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -124,7 +126,7 @@ trait WebhookTrait
     ): Webhook {
         try {
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/webhooks/{$webhookId}";
+            $requestEndpoint = static::BASE_URI . "/webhooks/{$webhookId}";
 
             // Request headers
             $requestHeaders = [
@@ -155,7 +157,7 @@ trait WebhookTrait
             $webhook = $response->json();
 
             return Webhook::fromArray($webhook);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -164,7 +166,7 @@ trait WebhookTrait
     {
         try {
             // Request Endpoint
-            $requestEndpoint = self::BASE_URI . "/webhooks/{$webhookId}";
+            $requestEndpoint = static::BASE_URI . "/webhooks/{$webhookId}";
 
             // Request headers
             $requestHeaders = [
@@ -183,7 +185,7 @@ trait WebhookTrait
             }
 
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
