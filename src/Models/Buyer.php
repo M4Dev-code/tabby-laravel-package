@@ -9,8 +9,12 @@ class Buyer
     protected string $name;
     protected ?string $dob;
 
-    public function __construct(string $phone, string $email, string $name, ?string $dob = null)
-    {
+    public function __construct(
+        string $phone,
+        string $email,
+        string $name,
+        ?string $dob = null
+    ) {
         $this->phone = $phone;
         $this->email = $email;
         $this->name = $name;

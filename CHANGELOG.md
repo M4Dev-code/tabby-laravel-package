@@ -1,3 +1,23 @@
+## 2.0.0
+
+### Added
+
+- **Checkout**
+  - Create a session
+  - Retrieve an existing checkout session
+- **Payment**
+  - Update a payment
+  - Capture a payment
+  - Refund a payment
+  - Close a payment
+  - List of all payments
+- **Webhooks**
+  - Register a webhook
+  - Retrieve all webhooks
+  - Retrieve a webhook
+  - Update a webhook
+  - Delete a webhook
+
 ## 1.0.5
 
 - **Refactored `createSession` method**: Split `createSession` logic to return the complete response instead of only the `web_url`.
