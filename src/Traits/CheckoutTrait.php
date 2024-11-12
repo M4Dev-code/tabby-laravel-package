@@ -90,13 +90,14 @@ trait CheckoutTrait
                 merchant: Merchant::fromArray($sessionData['merchant']),
                 merchantCode: $sessionData['merchant_code'],
                 token: $sessionData['token'],
+                warnings: $sessionData['warnings'],
             );
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function retrieveCheckoutSession(string $sessionId)
+    public function retrieveCheckoutSession(string $sessionId): CheckoutSession
     {
         try {
             $sessionId = trim($sessionId);
@@ -136,6 +137,7 @@ trait CheckoutTrait
                 merchant: Merchant::fromArray($sessionData['merchant']),
                 merchantCode: $sessionData['merchant_code'],
                 token: $sessionData['token'],
+                warnings: $sessionData['warnings'],
             );
         } catch (Exception $e) {
             throw $e;

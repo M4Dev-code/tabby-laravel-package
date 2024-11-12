@@ -39,6 +39,7 @@ class TabbyApiException extends Exception
             401 => 'The required authentication header is missing.',
             403 => 'You tried to perform an action which is forbidden.',
             404 => 'You are using an incorrect ID.',
+            409 => 'Refund is unavailable.'
         ];
 
         // Get the mapped error message or a default one

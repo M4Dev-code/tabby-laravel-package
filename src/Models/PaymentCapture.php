@@ -6,7 +6,7 @@ use Illuminate\Support\Carbon;
 
 class PaymentCapture
 {
-    private string $id;
+    private ?string $id;
     private float $amount;
     private ?string $referenceId; // Idempotency key. Used to avoid similar capture requests.
     private float $taxAmount;
@@ -16,7 +16,7 @@ class PaymentCapture
     private array $items;
 
     public function __construct(
-        string $id,
+        ?string $id = null,
         float $amount,
         string $referenceId = null,
         float $taxAmount = 0.00,
@@ -60,7 +60,7 @@ class PaymentCapture
         }, $data['items'] ?? []);
 
         return new self(
-            $data['id'],
+            $data['id'] ?? null,
             $data['amount'] ?? 0.00,
             $data['reference_id'] ?? null,
             $data['tax_amount'] ?? 0.00,

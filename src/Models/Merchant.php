@@ -8,8 +8,11 @@ class Merchant
     private string $address;
     private string $logo;
 
-    public function __construct(string $name, string $address, string $logo)
-    {
+    public function __construct(
+        string $name,
+        string $address,
+        string $logo
+    ) {
         $this->name = $name;
         $this->address = $address;
         $this->logo = $logo;
@@ -29,9 +32,9 @@ class Merchant
     public static function fromArray(array $data): self
     {
         return new self(
-            $data['name'],
-            $data['address'],
-            $data['logo']
+            $data['name'] ?? '',
+            $data['address'] ?? '',
+            $data['logo'] ?? '',
         );
     }
 

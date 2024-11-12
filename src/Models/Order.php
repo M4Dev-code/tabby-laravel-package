@@ -52,12 +52,12 @@ class Order
         }, $data['items'] ?? []);
 
         return new self(
-            $data['reference_id'],
+            $data['reference_id'] ?? '',
             $items,
             $data['tax_amount'] ?? 0.00,
             $data['shipping_amount'] ?? 0.00,
             $data['discount_amount'] ?? 0.00,
-            $data['updated_at'],
+            $data['updated_at'] ?? null,
         );
     }
 

@@ -4,18 +4,18 @@ namespace Tabby\Models;
 
 class Webhook
 {
-    private string $id;
+    private ?string $id;
     private string $url;
     private bool $isTest;
     private ?string $headerTitle;
     private ?string $headerValue;
 
     public function __construct(
-        string $id,
+        ?string $id = null,
         string $url,
         bool $isTest = true,
-        string $headerTitle = null,
-        string $headerValue = null,
+        ?string $headerTitle = null,
+        ?string $headerValue = null,
     ) {
         $this->id = $id;
         $this->url = $url;
@@ -47,11 +47,11 @@ class Webhook
         }
 
         return new self(
-            $data['id'],
-            $data['url'],
+            $data['id'] ?? null,
+            $data['url'] ?? '',
             $data['is_test'] ?? true,
-            $headerTitle,
-            $headerValue
+            $headerTitle ?? null,
+            $headerValue ?? null
         );
     }
 

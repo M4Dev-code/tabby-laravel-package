@@ -6,7 +6,7 @@ use Illuminate\Support\Carbon;
 
 class Payment
 {
-    private string $id; // Unique identifier for the payment (UUID), assigned by Tabby. Save it on your side!
+    private ?string $id; // Unique identifier for the payment (UUID), assigned by Tabby. Save it on your side!
     private ?string $createdAt;
     private ?string $expiresAt;
     private string $status; // Enum: "CREATED" "AUTHORIZED" "CLOSED" "REJECTED" "EXPIRED"
@@ -25,7 +25,7 @@ class Payment
     private ?array $attachment; // ["body" => json_encode("value"), "content_type" => "application/vnd.tabby.v1+json"]
 
     public function __construct(
-        string $id,
+        ?string $id = null,
         float $amount,
         Buyer $buyer,
         ShippingAddress $shippingAddress,
@@ -94,7 +94,7 @@ class Payment
         $orderHistory = array_map(fn($historyData) => OrderHistory::fromArray($historyData), $data['order_history'] ?? []);
 
         return new self(
-            $data['id'] ?? '',
+            $data['id'] ?? null,
             $data['amount'] ?? 0.00,
             Buyer::fromArray($data['buyer'] ?? []),
             ShippingAddress::fromArray($data['shipping_address'] ?? []),

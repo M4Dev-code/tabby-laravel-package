@@ -5,11 +5,14 @@ namespace Tabby\Models;
 class Configuration
 {
     private array $availableProducts;
-    private string $expiresAt;
+    private ?string $expiresAt;
     private array $products;
 
-    public function __construct(array $availableProducts, string $expiresAt, array $products)
-    {
+    public function __construct(
+        array $availableProducts,
+        ?string $expiresAt = null,
+        array $products
+    ) {
         $this->availableProducts = $availableProducts;
         $this->expiresAt = $expiresAt;
         $this->products = $products;
@@ -29,9 +32,9 @@ class Configuration
     public static function fromArray(array $data): self
     {
         return new self(
-            $data['available_products'],
-            $data['expires_at'],
-            $data['products']
+            $data['available_products'] ?? [],
+            $data['expires_at'] ?? null,
+            $data['products'] ?? [],
         );
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Support\Carbon;
 
 class PaymentRefund
 {
-    private string $id;
+    private ?string $id;
     private float $amount;
     private ?string $referenceId;
     private ?string $reason;
@@ -14,7 +14,7 @@ class PaymentRefund
     private array $items;
 
     public function __construct(
-        string $id,
+        ?string $id = null,
         float $amount,
         string $referenceId = null,
         string $reason = null,
@@ -52,7 +52,7 @@ class PaymentRefund
         }, $data['items'] ?? []);
 
         return new self(
-            $data['id'],
+            $data['id'] ?? null,
             $data['amount'] ?? 0.00,
             $data['reference_id'] ?? null,
             $data['reason'] ?? null,

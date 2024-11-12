@@ -57,8 +57,8 @@ class OrderHistory
 
         return new self(
             $data['amount'] ?? 0.00,
-            Buyer::fromArray($data['buyer']),
-            ShippingAddress::fromArray($data['shipping_address']),
+            Buyer::fromArray($data['buyer'] ?? []),
+            ShippingAddress::fromArray($data['shipping_address'] ?? []),
             $data['purchased_at'] ?? null,
             $data['payment_method'] ?? "card",
             $data['status'] ?? "new",
