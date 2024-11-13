@@ -47,7 +47,7 @@ trait WebhookTrait
             // Decode the JSON response
             $webhook = $response->json();
 
-            return Webhook::fromArray($webhook);
+            return Webhook::fromArray($webhook ?? []);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -81,7 +81,7 @@ trait WebhookTrait
             // Convert the webhook list to an array of Webhook objects
             return array_map(
                 fn($webhook) => Webhook::fromArray($webhook),
-                $webhookList
+                $webhookList ?? []
             );
         } catch (\Exception $e) {
             throw $e;
@@ -113,7 +113,7 @@ trait WebhookTrait
             // Decode the JSON response
             $webhook = $response->json();
 
-            return Webhook::fromArray($webhook);
+            return Webhook::fromArray($webhook ?? []);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -156,7 +156,7 @@ trait WebhookTrait
             // Decode the JSON response
             $webhook = $response->json();
 
-            return Webhook::fromArray($webhook);
+            return Webhook::fromArray($webhook ?? []);
         } catch (\Exception $e) {
             throw $e;
         }

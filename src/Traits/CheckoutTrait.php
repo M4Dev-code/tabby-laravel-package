@@ -84,15 +84,15 @@ trait CheckoutTrait
 
             return new CheckoutSession(
                 id: $sessionData['id'],
-                configuration: Configuration::fromArray($sessionData['configuration']),
-                payment: Payment::fromArray($sessionData['payment']),
+                configuration: Configuration::fromArray($sessionData['configuration'] ?? []),
+                payment: Payment::fromArray($sessionData['payment'] ?? []),
                 status: $sessionData['status'],
-                merchantUrls: $sessionData['merchant_urls'],
+                merchantUrls: $sessionData['merchant_urls'] ?? [],
                 lang: $sessionData['lang'],
-                merchant: Merchant::fromArray($sessionData['merchant']),
+                merchant: Merchant::fromArray($sessionData['merchant'] ?? []),
                 merchantCode: $sessionData['merchant_code'],
                 token: $sessionData['token'],
-                warnings: $sessionData['warnings'],
+                warnings: $sessionData['warnings'] ?? [],
             );
         } catch (\Exception $e) {
             throw $e;
@@ -131,15 +131,15 @@ trait CheckoutTrait
 
             return new CheckoutSession(
                 id: $sessionData['id'],
-                configuration: Configuration::fromArray($sessionData['configuration']),
-                payment: Payment::fromArray($sessionData['payment']),
+                configuration: Configuration::fromArray($sessionData['configuration'] ?? []),
+                payment: Payment::fromArray($sessionData['payment'] ?? []),
                 status: $sessionData['status'],
-                merchantUrls: $sessionData['merchant_urls'],
+                merchantUrls: $sessionData['merchant_urls'] ?? [],
                 lang: $sessionData['lang'],
-                merchant: Merchant::fromArray($sessionData['merchant']),
+                merchant: Merchant::fromArray($sessionData['merchant'] ?? []),
                 merchantCode: $sessionData['merchant_code'],
                 token: $sessionData['token'],
-                warnings: $sessionData['warnings'],
+                warnings: $sessionData['warnings'] ?? [],
             );
         } catch (\Exception $e) {
             throw $e;

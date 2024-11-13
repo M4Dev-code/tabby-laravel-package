@@ -1,3 +1,6 @@
+# 2.0.3
+- Fix null arrays
+
 # 2.0.2
 - Fix `static const` bug.
 

@@ -41,7 +41,7 @@ trait PaymentTrait
             // Decode the JSON response
             $payment = $response->json();
 
-            return Payment::fromArray($payment);
+            return Payment::fromArray($payment ?? []);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -98,7 +98,7 @@ trait PaymentTrait
             // Decode the JSON response
             $payment = $response->json();
 
-            return Payment::fromArray($payment);
+            return Payment::fromArray($payment ?? []);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -138,7 +138,7 @@ trait PaymentTrait
                     'tax_amount' => $taxAmount,
                     'shipping_amount' => $shippingAmount,
                     'discount_amount' => $discountAmount,
-                    'items' => $items
+                    'items' => $items ?? []
                 ]
             );
 
@@ -153,7 +153,7 @@ trait PaymentTrait
             // Decode the JSON response
             $payment = $response->json();
 
-            return Payment::fromArray($payment);
+            return Payment::fromArray($payment ?? []);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -189,7 +189,7 @@ trait PaymentTrait
                     'amount' => $amount,
                     'reference_id' => $referenceId,
                     'reason' => $reason,
-                    'items' => $items
+                    'items' => $items ?? []
                 ]
             );
 
@@ -204,7 +204,7 @@ trait PaymentTrait
             // Decode the JSON response
             $payment = $response->json();
 
-            return Payment::fromArray($payment);
+            return Payment::fromArray($payment ?? []);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -240,7 +240,7 @@ trait PaymentTrait
             // Decode the JSON response
             $payment = $response->json();
 
-            return Payment::fromArray($payment);
+            return Payment::fromArray($payment ?? []);
         } catch (\Exception $e) {
             throw $e;
         }
