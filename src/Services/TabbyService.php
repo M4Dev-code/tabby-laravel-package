@@ -10,7 +10,7 @@ use Tabby\Traits\WebhookTrait;
 class TabbyService
 {
     use CheckoutTrait, PaymentTrait, WebhookTrait;
-    protected static const BASE_URI = 'https://api.tabby.ai/api/v2';
+    protected const BASE_URI = 'https://api.tabby.ai/api/v2';
 
     // Properties
     protected string $merchantCode;
