@@ -32,7 +32,7 @@ trait CheckoutTrait
     ): CheckoutSession {
         try {
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . '/checkout';
+            $requestEndpoint = static::BASE_URI_V2 . '/checkout';
 
             // Request headers
             $requestHeaders = [
@@ -109,7 +109,7 @@ trait CheckoutTrait
             }
 
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/checkout/{$sessionId}";
+            $requestEndpoint = static::BASE_URI_V2 . "/checkout/{$sessionId}";
 
             // Request headers
             $requestHeaders = [

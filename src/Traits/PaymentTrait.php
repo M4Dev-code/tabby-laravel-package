@@ -21,7 +21,7 @@ trait PaymentTrait
             }
 
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/payments/$paymentId";
+            $requestEndpoint = static::BASE_URI_V2 . "/payments/$paymentId";
 
             // Request headers
             $requestHeaders = [
@@ -78,7 +78,7 @@ trait PaymentTrait
             }
 
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/payments/$paymentId";
+            $requestEndpoint = static::BASE_URI_V2 . "/payments/$paymentId";
 
             // Request headers
             $requestHeaders = [
@@ -121,7 +121,7 @@ trait PaymentTrait
             }
 
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/payments/$paymentId/captures";
+            $requestEndpoint = static::BASE_URI_V2 . "/payments/$paymentId/captures";
 
             // Request headers
             $requestHeaders = [
@@ -174,7 +174,7 @@ trait PaymentTrait
             }
 
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/payments/$paymentId/refunds";
+            $requestEndpoint = static::BASE_URI_V2 . "/payments/$paymentId/refunds";
 
             // Request headers
             $requestHeaders = [
@@ -220,7 +220,7 @@ trait PaymentTrait
             }
 
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/payments/$paymentId/close";
+            $requestEndpoint = static::BASE_URI_V2 . "/payments/$paymentId/close";
 
             // Request headers
             $requestHeaders = [
@@ -261,7 +261,7 @@ trait PaymentTrait
             }
 
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/payments";
+            $requestEndpoint = static::BASE_URI_V2 . "/payments";
 
             // Request headers
             $requestHeaders = [

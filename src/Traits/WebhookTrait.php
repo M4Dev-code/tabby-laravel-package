@@ -17,7 +17,7 @@ trait WebhookTrait
     ): Webhook {
         try {
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/webhooks";
+            $requestEndpoint = static::BASE_URI_V1 . "/webhooks";
 
             // Request headers
             $requestHeaders = [
@@ -57,7 +57,7 @@ trait WebhookTrait
     {
         try {
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/webhooks";
+            $requestEndpoint = static::BASE_URI_V1 . "/webhooks";
 
             // Request headers
             $requestHeaders = [
@@ -92,7 +92,7 @@ trait WebhookTrait
     {
         try {
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/webhooks/{$webhookId}";
+            $requestEndpoint = static::BASE_URI_V1 . "/webhooks/{$webhookId}";
 
             // Request headers
             $requestHeaders = [
@@ -126,7 +126,7 @@ trait WebhookTrait
     ): Webhook {
         try {
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/webhooks/{$webhookId}";
+            $requestEndpoint = static::BASE_URI_V1 . "/webhooks/{$webhookId}";
 
             // Request headers
             $requestHeaders = [
@@ -166,7 +166,7 @@ trait WebhookTrait
     {
         try {
             // Request Endpoint
-            $requestEndpoint = static::BASE_URI . "/webhooks/{$webhookId}";
+            $requestEndpoint = static::BASE_URI_V1 . "/webhooks/{$webhookId}";
 
             // Request headers
             $requestHeaders = [
