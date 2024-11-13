@@ -73,6 +73,63 @@ class CheckoutSession
         );
     }
 
+    public function getRejectionReason(): array
+    {
+        if (!$this->isRejected()) {
+            return [];
+        }
+
+        // Get the rejection reason key from configuration
+        $hasReason = !empty($this->configuration->getProducts()['installments']['rejection_reason']);
+        $rejectionKey = $hasReason ? $this->configuration->getProducts()['installments']['rejection_reason'] : 'unknown';
+
+        // Define a mapping of rejection reasons
+        $rejectionReasons = [
+            'not_available' => \Tabby\Constants::REJECTION_REASON_NOT_AVAILABLE,
+            'order_amount_too_high' => \Tabby\Constants::REJECTION_REASON_ORDER_AMOUNT_TOO_HIGH,
+            'order_amount_too_low' => \Tabby\Constants::REJECTION_REASON_ORDER_AMOUNT_TOO_LOW,
+        ];
+
+        // Return the mapped rejection reason or a default message if unknown
+        $reason = $rejectionReasons[$rejectionKey] ?? $rejectionReasons['not_available'];
+        $reason['en-ar'] = $reason['en'] . ', ' . $reason['ar'];
+        return $reason;
+    }
+
+    public function getPaymentUrl(): string
+    {
+        try {
+            // Check if the web URL for installments is set and not empty
+            $isWebUrlAvailable = !empty($this->configuration->getAvailableProducts()['installments'][0]['web_url']);
+
+            if (!$isWebUrlAvailable) {
+                // Determine the appropriate error message
+                $errorMsg = 'Web URL missing in the response.';
+
+                if ($this->isRejected()) {
+                    $errorMsg = $this->getRejectionReason()['en-ar'];
+                }
+
+                // Override error message with warning if available
+                if (!empty($this->warnings[0]['message'])) {
+                    $errorMsg = $this->warnings[0]['message'];
+                }
+
+                // Throw an exception with the determined error message
+                throw new \Exception($errorMsg, 500);
+            }
+
+            return $this->configuration->getAvailableProducts()['installments'][0]['web_url'];
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function isRejected(): bool
+    {
+        return strtolower($this->status ?? '') === 'rejected';
+    }
+
     // Getters
     public function getId(): string
     {
@@ -122,32 +179,5 @@ class CheckoutSession
     public function getWarnings(): array
     {
         return $this->warnings;
-    }
-
-    public function getPaymentUrl(): string
-    {
-        try {
-            // Check if the web URL for installments is set and not empty
-            $isWebUrlAvailable = !empty($this->configuration->getAvailableProducts()['installments'][0]['web_url']);
-
-            if (!$isWebUrlAvailable) {
-                // Determine the appropriate error message
-                $errorMsg = strtolower($this->status ?? '') === 'rejected'
-                    ? 'The session request was rejected.'
-                    : 'Web URL missing in the response.';
-
-                // Override error message with warning if available
-                if (!empty($this->warnings[0]['message'])) {
-                    $errorMsg = $this->warnings[0]['message'];
-                }
-
-                // Throw an exception with the determined error message
-                throw new \Exception($errorMsg, 500);
-            }
-
-            return $this->configuration->getAvailableProducts()['installments'][0]['web_url'];
-        } catch (\Exception $e) {
-            throw $e;
-        }
     }
 }
