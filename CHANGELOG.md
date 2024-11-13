@@ -1,3 +1,15 @@
+# 2.0.1
+
+**Added:**
+
+- `getRejectionReason()` method in `CheckoutSession` to return a detailed rejection reason based on the session's configuration.
+- `isRejected()` method to check if the session's status is "rejected".
+- Integrated rejection reason constants from `Tabby\Constants` for rejection messages.
+
+**Changed:**
+
+- Modified `getPaymentUrl()` to provide more context in error messages, including rejection reasons when the session is rejected.
+
 ## 2.0.0
 
 ### Added
