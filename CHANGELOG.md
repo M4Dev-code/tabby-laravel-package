@@ -1,3 +1,7 @@
+# 2.1.1
+
+- add floatval to the models
+
 # 2.1.0
 
 ## Added:
