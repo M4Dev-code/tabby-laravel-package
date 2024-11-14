@@ -83,7 +83,7 @@ class WebhookPayload
             status: $data['status'] ?? null,
             isTest: $data['is_test'] ?? null,
             isExpired: $data['is_expired'] ?? null,
-            amount: floatval($data['amount']),
+            amount: floatval($data['amount'] ?? 0.00),
             currency: $data['currency'] ?? null,
             order: $data['order'] ? Order::fromArray($data['order']) : null,
             captures: $captures ?? [],

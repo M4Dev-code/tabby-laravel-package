@@ -95,7 +95,7 @@ class Payment
 
         return new self(
             $data['id'] ?? null,
-            floatval($data['amount']) ?? 0.00,
+            floatval($data['amount'] ?? 0.00),
             Buyer::fromArray($data['buyer'] ?? []),
             ShippingAddress::fromArray($data['shipping_address'] ?? []),
             Order::fromArray($data['order'] ?? []),

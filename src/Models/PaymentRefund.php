@@ -53,7 +53,7 @@ class PaymentRefund
 
         return new self(
             $data['id'] ?? null,
-            floatval($data['amount']) ?? 0.00,
+            floatval($data['amount'] ?? 0.00),
             $data['reference_id'] ?? null,
             $data['reason'] ?? null,
             $data['created_at'] ?? null,

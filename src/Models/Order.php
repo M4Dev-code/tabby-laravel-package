@@ -56,9 +56,9 @@ class Order
         return new self(
             $data['reference_id'] ?? '',
             $items,
-            floatval($data['tax_amount']) ?? 0.00,
-            floatval($data['shipping_amount']) ?? 0.00,
-            floatval($data['discount_amount']) ?? 0.00,
+            floatval($data['tax_amount'] ?? 0.00),
+            floatval($data['shipping_amount'] ?? 0.00),
+            floatval($data['discount_amount'] ?? 0.00),
             $data['updated_at'] ?? null,
         );
     }
