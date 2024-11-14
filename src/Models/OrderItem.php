@@ -86,8 +86,8 @@ class OrderItem
         return new self(
             $data['title'] ?? '',
             $data['category'] ?? '',
-            $data['unit_price'] ?? 0.00,
-            $data['discount_amount'] ?? 0.00,
+            floatval($data['unit_price']) ?? 0.00,
+            floatval($data['discount_amount']) ?? 0.00,
             $data['quantity'] ?? 1,
             $data['is_refundable'] ?? false,
             $data['description'] ?? null,

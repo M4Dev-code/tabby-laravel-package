@@ -1,10 +1,19 @@
+# 2.1.0
+
+## Added:
+
+- WebhookPayload to handle tabby webhook payload as object
+
 # 2.0.4
+
 - Add V1 and V2
 
 # 2.0.3
+
 - Fix null arrays
 
 # 2.0.2
+
 - Fix `static const` bug.
 
 # 2.0.1

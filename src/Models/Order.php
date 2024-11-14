@@ -15,7 +15,7 @@ class Order
 
     public function __construct(
         string $referenceId,
-        array $items,
+        array $items = [],
         float $taxAmount = 0.00,
         float $shippingAmount = 0.00,
         float $discountAmount = 0.00,
@@ -38,25 +38,27 @@ class Order
             'discount_amount' => number_format($this->discountAmount, 2, '.', ''),
             'updated_at' => $this->updatedAt,
             'reference_id' => $this->referenceId,
-            'items' => array_map(function ($item) {
-                return $item->toArray();
-            }, $this->items),
+            'items' => array_map(
+                fn($item) => $item->toArray(),
+                $this->items
+            ),
         ];
     }
 
     // Populate the object from an array
     public static function fromArray(array $data): self
     {
-        $items = array_map(function ($itemData) {
-            return OrderItem::fromArray($itemData);
-        }, $data['items'] ?? []);
+        $items = array_map(
+            fn($itemData) => OrderItem::fromArray($itemData),
+            $data['items'] ?? []
+        );
 
         return new self(
             $data['reference_id'] ?? '',
             $items,
-            $data['tax_amount'] ?? 0.00,
-            $data['shipping_amount'] ?? 0.00,
-            $data['discount_amount'] ?? 0.00,
+            floatval($data['tax_amount']) ?? 0.00,
+            floatval($data['shipping_amount']) ?? 0.00,
+            floatval($data['discount_amount']) ?? 0.00,
             $data['updated_at'] ?? null,
         );
     }

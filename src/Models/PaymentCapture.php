@@ -61,11 +61,11 @@ class PaymentCapture
 
         return new self(
             $data['id'] ?? null,
-            $data['amount'] ?? 0.00,
+            floatval($data['amount']) ?? 0.00,
             $data['reference_id'] ?? null,
-            $data['tax_amount'] ?? 0.00,
-            $data['shipping_amount'] ?? 0.00,
-            $data['discount_amount'] ?? 0.00,
+            floatval($data['tax_amount']) ?? 0.00,
+            floatval($data['shipping_amount']) ?? 0.00,
+            floatval($data['discount_amount']) ?? 0.00,
             $data['created_at'] ?? null,
             $items
         );
