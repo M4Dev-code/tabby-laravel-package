@@ -17,7 +17,7 @@ use Tabby\Exceptions\TabbyApiException;
 
 trait CheckoutTrait
 {
-    public function createSession(
+   public function createSession(
         float $amount,
         Buyer $buyer,
         Order $order,
@@ -29,6 +29,7 @@ trait CheckoutTrait
         string $lang = 'ar',
         ?BuyerHistory $buyerHistory = null,
         ?OrderHistory $orderHistory = null,
+        array $attachment = null
     ): CheckoutSession {
         try {
             // Request Endpoint
@@ -41,22 +42,30 @@ trait CheckoutTrait
                 'Authorization' => "Bearer {$this->publicKey}",
             ];
 
-            // Set default values
-            $buyerHistory ??= new BuyerHistory();
-            $orderHistory ??= new OrderHistory(0, $buyer, $shippingAddress);
-
+            // Build payment array
             $payment = [
-                'amount' => number_format($amount, 2),
+                'amount' => number_format($amount, 2, '.', ''),
                 'currency' => $this->currency,
                 'description' => $description,
                 'buyer' => $buyer->toArray(),
-                'buyer_history' => $buyerHistory->toArray(),
                 'order' => $order->toArray(),
-                'order_history' => [$orderHistory->toArray()],
                 'shipping_address' => $shippingAddress->toArray(),
-                // 'meta' => $meta,
-                // 'attachment' => $attachment,
             ];
+
+            // Add buyer_history (with default if not provided)
+            $payment['buyer_history'] = ($buyerHistory ?? new BuyerHistory())->toArray();
+
+            // Add order_history only if explicitly provided
+            if ($orderHistory !== null) {
+                $payment['order_history'] = [$orderHistory->toArray()];
+            }
+            // // Set default values
+            // $buyerHistory ??= new BuyerHistory();
+            // $orderHistory ??= new OrderHistory(0, $buyer, $shippingAddress);
+            // Add attachment only if provided
+            if ($attachment !== null) {
+                $payment['attachment'] = $attachment;
+            }
 
             // Request body parameters
             $requestBody = [
